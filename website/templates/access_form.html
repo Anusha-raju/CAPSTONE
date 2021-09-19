@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/setup.css">
+    <link rel="stylesheet" href="static/register.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+
+    <title>{{ form.name}}</title>
+  </head>
+  {% with messages = get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  {{ messages }}
+  </div>
+  {% endwith %}
+  <body>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="container" id="">
+        {% from "includes/_formhelpers.html" import render_field %}
+        <li class="list-group-item">
+      <div class="login-box well">
+
+      <div class="form-group">
+        {{ render_field(form.name, class_="form-control", placeholder="John")}}
+      </div>
+      <div class="form-group">
+        {{ render_field(form.email, class_="form-control", placeholder="John@example.com")}}
+      </div>
+      <p style="margin: 0px;"><input type="submit" class="btn btn-primary" value="Submit" style="background-color: #6a63dd"></p>
+
+    </form>
+  </body>
+  </html>

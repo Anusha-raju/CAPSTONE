@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/setup.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+      #footer {
+                position:absolute;
+                bottom:0;
+                width:100%;
+                height:60px;   /* Height of the footer */
+                background:#6cf;
+              }
+    </style>
+
+    <title>Step 3</title>
+  </head>
+  {% for message in get_flashed_messages()%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  <body>
+    <form method = 'POST'>
+      <div class="container" align="center" id="">
+      {% from "includes/_formhelpers.html" import render_field %}
+      <div class="row">
+        <div class="col-sm">
+          <h1>Step 3</h1>
+        </div>
+      </div>
+      <p class="lead">
+      What's the one main activity you want to do?
+      </p>
+      </br>
+      </br>
+      <div align="center">
+        <input name="activity" type="submit" class="btn btn-secondary" value="Conduct Research">&nbsp;&nbsp;
+      </div>
+    </br>
+    <div align="center">
+        <input name="activity" type="submit" class="btn btn-secondary" value="QUIZ">&nbsp;&nbsp;
+      </div>
+
+    </br>
+    
+      <div align="center">
+        <input name="activity" type="submit" class="btn btn-secondary" value="Get Feedback">&nbsp;&nbsp;
+      </div></br>
+      <div align="center">
+        <input name="activity" type="submit" class="btn btn-secondary" value="others">&nbsp;&nbsp;
+      </div>
+    </form>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+  <div id = 'footer'>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100">66%</div>
+    </div>
+  </div>
+</html>
+

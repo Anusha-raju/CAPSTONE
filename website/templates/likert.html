@@ -1,0 +1,49 @@
+{% extends "base.html" %} {% block title %}Add Form{% endblock %} {% block content
+%}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+<h1 align="center">Likert</h1>
+<form method="POST">
+  {{ question }}
+  <table class="table">
+    <thead>
+      <tr>
+      <th scope='col'> </th>
+      {% if columns %}
+      {% for col in columns.split(',') %}
+      <th scope='col'> {{ col }}</th>
+      {% endfor %}
+      {% endif %}
+      <th scope='col'><input type="text" class="form-control" placeholder="Column" name = 'column' id = 'column'></th>
+      <th scope='col'><button type="submit" class="btn btn-secondary" name = "action" value ="add_column" >Add_Column</button></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% if rows %}
+      {% for row in rows.split(',') %}
+      <tr> <th scope="row">{{ row }}</th></tr>
+      {% endfor %}
+      {% endif %}
+      <tr> <th scope="row"><input type="text" class="form-control" placeholder="Row" name = 'row' id = 'row'>
+      <button type="submit" class="btn btn-secondary" name = "action" value ="add_row" >Add_Row</button></th></tr>
+    </tbody>
+  </table>
+  <div align="center">
+  <button type="submit" class="btn btn-info" name = "action" value ="submit" >SUBMIT</button></th></tr></div>
+</form>
+{% endblock %}

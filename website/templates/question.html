@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/setup.css">
+    <link rel="stylesheet" href="static/register.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+
+    <title>Question</title>
+  </head>
+
+  <body>
+    {% if dataa.timer %}
+    <div>
+      <p> WATCH THE CLOCK :</p>
+      <h1 id = "count">start</h1>
+    </div>{% endif %}
+    <script type="text/javascript">
+      var counter = {{ dataa.timer }};
+
+      setInterval(function(){
+        counter--;
+
+        if (counter>=0){
+          id = document.getElementById("count");
+          id.innerHTML = counter;
+        }
+        if (counter == 0){
+
+
+    window.location.href = "/next_question/{{ questionid }},{{ client_id }},{{ dataa.id }}";
+        
+        }
+      },1000  );
+      
+    </script>
+    <form method="POST" enctype="multipart/form-data">
+      
+      <div class="container" id="">
+        {% from "includes/_formhelpers.html" import render_field %}
+        <li class="list-group-item">
+      <div class="login-box well">
+      {{ dataa.question }}
+      </br></br></br>
+      {% if dataa.compulsory == 'no' %}
+      <div align="right">
+        <a href = "/skip/{{ questionid }},{{ client_id }},{{dataa.id}} " class = "btn btn-outline-warning">SKIP</a>
+        &ensp;&ensp;
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Rating (out of 5)'] %}
+
+      </br>
+      <div class="form-group">
+        
+        {{ render_field(answerform.rate , class_="form-control", placeholder="select")}}
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      </br>
+      {% endif %}
+
+      {% if dataa.data_type in ['Dropdown'] %}
+
+      </br>
+      <div class="form-group">
+        <div class="form-check">{{ answerform.drop.label }} {{ answerform.drop(rows=3, multiple=True) }}</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      </br>
+      {% endif %}
+      {% if dataa.data_type in ['File Upload'] %}
+      <div class="form-group">
+        <div class="row">
+          <h2>Select a file to upload</h2>
+          <p>
+              {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  <ul>
+                  {% for message in messages %}
+                    <li>{{ message }}</li>
+                  {% endfor %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+          </p>
+          {% if filename %}
+              <div>
+                  <img src="{{ url_for('display_image', filename=filename) }}">
+              </div>
+          {% endif %}
+          <div class="input-group">
+              <input type="file" class="form-control" id="inputGroupFile04" name='file' aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+          </div>
+      </div>
+        {{ render_field(answerform.submit, class_="form-control")}}
+
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Email (with validation)'] %}
+      <div class="form-group">
+        {{ render_field(answerform.email, class_="form-control", placeholder="john@example.com")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Date (with validation)'] %}
+      <div class="form-group">
+        {{ render_field(answerform.date, class_="form-control", placeholder="%Y-%m-%d")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Number (with validation)'] %}
+      <div class="form-group">
+        {{ render_field(answerform.number, class_="form-control", placeholder="(0-9)*")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Yes or No'] %}
+      </br>
+      <div class="form-group">
+        {{ answerform.radio.label }} {{ answerform.radio }}
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      </br>
+      </br>
+      {% endif %}
+
+      {% if dataa.data_type in ['Statement'] %}
+      <div class="form-group">
+        {{ render_field(answerform.submit, class_="form-control")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Phone Number'] %}
+      <div class="form-group">
+        {{ render_field(answerform.phone, class_="form-control",required='False', placeholder="eg. (+Country code)xxxxxxxxxx")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Short Text'] %}
+      <div class="form-group">
+        {{ render_field(answerform.short_text, class_="form-control", placeholder="eg. this is short text")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Fill in A Blank'] %}
+      <div class="form-group">
+        {{ render_field(answerform.blank, class_="form-control", placeholder="answer")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Fill in the Blanks'] %}
+      <div class="form-group">
+        {{ render_field(answerform.blank, class_="form-control", placeholder="answer_1,answer_2,....")}}
+      </div>
+      {% endif %}
+
+      {% if dataa.data_type in ['Long Text'] %}
+      <div class="form-group">
+        {{ render_field(answerform.long_text, class_="form-control", placeholder="eg. this is long text")}}
+      </div>
+      {% endif %}
+      
+      {% if dataa.data_type in ['Multiple Answers','Picture Multiple Answers'] %}
+
+      </br>
+      <div class="form-group">
+        <div class="form-check">{{ answerform.select.label }} {{ answerform.select(rows=3, multiple=True) }}</div>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      </br>
+      {% endif %}
+      {% if dataa.data_type in ['Multiple Choice','Picture Multiple Choice'] %}
+      </br>
+      <div class="form-group">
+        {{ answerform.radio.label }} {{ answerform.radio }}
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      </br>
+      </br>
+      {% endif %}
+      <div align="center">
+      {% if dataa.data_type in ['Picture Multiple Choice','Picture Multiple Answers'] %}
+      {% if dataa.layout in ['TOP']%}
+      <div align="center">
+        <img src="{{ url_for('views.display_image', dataaid = dataa.id) }}" alt="ImAGE" width="300" height="300"/></div>
+      {% endif %} 
+      {% if dataa.layout in ['SIDE']%}
+      <div style="float: 'left' ">
+      <img src="{{ url_for('views.display_image', dataaid = dataa.id) }}" alt="ImAGE" width="300" height="300"/></div>
+      {% endif %}
+      {% endif %}
+      {% if dataa.data_type in ['Likert'] %}
+      <div class="form-group">
+      <table class="table table-bordered">
+    <thead>
+      <tr>
+      <th scope='col'> </th>
+      {% if dataa.columns %}
+      {% for col in dataa.columns.split(',') %}
+      {% if col %}
+      <th scope='col'> {{ col }}</th>{% endif %}
+      {% endfor %}
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+      {% if dataa.rows %}
+      {% for row in dataa.rows.split(',') %}
+      <tr> <th scope="row">{{ row }}</th>
+        {% for col in dataa.columns.split(',') %}
+        {% if col %}
+          <th><div class="form-check">
+        
+      <input class="form-check-input" type="radio" name="{{ row }}" id="flexRadioDefault1" value = "{{ col }}">
+      <label class="form-check-label" for="flexRadioDefault1">
+      </label>
+      </div></th>{% endif %}{% endfor %}
+      </tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+      </br>
+      
+        {{ render_field(answerform.submit, class_="form-control")}}
+      </div>
+      {% endif %}
+      </div>
+
+      </li>
+    
+ 
+        
+</div>
+      </div>
+    </form>
+  </body>
+  </html>

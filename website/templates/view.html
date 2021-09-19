@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %} 
+{% block content%}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+<h1 align="center">{{ formsname }}</h1>
+<form method = "POST">
+<ul class="list-group list-group-flush", id="data_stored">
+  {% for form in user.data_stored %}
+  {% if form.name ==  formsname %}
+    {% for dataa in form.data %}
+      <li class="list-group-item">
+      <p>question: &ensp;&ensp;&ensp;{{ dataa.question }}</p>
+      <p>SCORE:{{dataa.score}}&ensp;&ensp;&ensp;NEGATIVE SCORE:{{dataa.neg_score}}</p>
+
+      {% if dataa.data_type in ['Picture Multiple Choice','Picture Multiple Answers'] %}
+      {% if dataa.layout in ['TOP']%}
+      <div align="center"><img src="{{ url_for('views.display_image', dataaid = dataa.id) }}" alt="ImAGE" width="300" height="300"/></div>
+      {% endif %}
+      {% if dataa.layout in ['SIDE']%}
+      <div style="float: 'left' ">
+      <img src="{{ url_for('views.display_image', dataaid = dataa.id) }}" alt="ImAGE" width="300" height="300"/></div>
+      {% endif %}
+      {% endif %}
+      <div align="center">
+      {% if dataa.data_type in ['Likert'] %}
+      <table class="table">
+    <thead>
+      <tr>
+      <th scope='col'> </th>
+      {% if dataa.columns %}
+      {% for col in dataa.columns.split(',') %}
+      <th scope='col'> {{ col }}</th>
+      {% endfor %}
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+      {% if dataa.rows %}
+      {% for row in dataa.rows.split(',') %}
+      <tr> <th scope="row">{{ row }}</th></tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+      {% endif %}
+
+    </div>
+
+    </br>
+    
+      {% if dataa.option_1 %}
+        {{ dataa.option_1 }}
+      {% endif %}
+      </br>
+      {% if dataa.option_2 %}
+        {{ dataa.option_2 }}
+      {% endif %}
+      </br>
+      {% if dataa.option_3 %}
+        {{ dataa.option_3 }}
+      {% endif %}
+      </br>
+      {% if dataa.option_4 %}
+        {{ dataa.option_4 }}
+      {% endif %}
+      </br>
+      <div class="text-right">
+       <button type="submit" class="btn btn-secondary" value = {{ dataa.id }} name = "action">Edit</button>
+       <a href = "/delete/{{ dataa.id}}/{{ formsname }} " class = "btn btn-outline-danger btn-sm">Delete</a>
+     </div>
+      </li>
+    {% endfor %}
+
+    {% endif %}
+  {% endfor %}
+  
+</ul>
+</form>
+{% endblock %}

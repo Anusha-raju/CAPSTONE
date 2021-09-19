@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/setup.css">
+    <link rel="stylesheet" href="static/register.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+
+    <title>Results {{ form.name }}</title>
+  </head>
+  {% for message in get_flashed_messages()%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  <body>
+    <center>
+    <h1>Results of {{ form.name }}</h1>
+  </center>
+    <form method="POST">
+      <div class="container" id="">
+
+        <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">View</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for clients in form.clients %}
+          <tr>
+            <td>{{ clients.name}}</td>
+            <td>{{clients.email}}</td>
+            <td><a href = "/details/{{ clients.id}} " class = "btn btn-outline-success">VIEW</a></td>
+            
+          </tr>
+        {% endfor %}</tbody></table>
+    </div>
+    <center>
+    <button type="submit" class="btn btn-primary" >HOME</button></center>
+  </form>
+  </body>
+  </html>
+

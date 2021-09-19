@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+content %}
+{%block head %}
+  <link rel="stylesheet" href="static/register.css">
+  <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+{% endblock %}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-warning alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+
+{% block body %}
+<div class="container" align="center" id="">
+  {% from "includes/_formhelpers.html" import render_field %}
+  <div class="row">
+      <div class="col-sm">
+        <h1>Register</h1>
+      </div>
+  </div>
+  <div class="login-box well">
+    <form method="POST" action="">
+      <div class="form-group">
+        {{render_field(form.name, class_="form-control", placeholder="eg. John Smith")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.email, class_="form-control", placeholder="eg. john@gmail.com")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.username, class_="form-control", placeholder="eg. johnsmith")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.password, class_="form-control", placeholder="eg. john@123")}}
+      </div>
+      <div class="form-group">
+        {{render_field(form.confirm, class_="form-control", placeholder="eg. john@123")}}
+      </div>
+      <p style="margin: 0px;"><input type="submit" class="btn btn-primary" value="Submit" style="background-color: #6a63dd"></p>
+    </form>
+    <p>Already have an account?
+        <a href="/login" id="register">Click here</a>.
+      </p>
+  </div>
+  <div>
+  </div>
+</div>
+{% endblock %}
+{% endblock %}

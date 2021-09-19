@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% block title %}Add Form{% endblock %} {% block content
+%}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+<h1 align="center">Edit Question</h1>
+<form method="post" enctype="multipart/form-data">
+  <br />
+  <label>Question</label>
+  <textarea name="question" id="question" class="form-control form-control-sm"  placeholder="{{ data.question }}"></textarea>
+  <br />
+  <label>SCORE</label>
+  <input type="number" id="score" name="score" placeholder="{{ data.score }}"></br>
+  <label>NEGATIVE SCORE</label>
+  <input type="number" id="neg_score" name="neg_score" placeholder="{{ data.neg_score }}">
+
+
+  <br /><br /><br />
+  <div class="form-check">
+  <input class="form-check-input" type="radio" name="compulsory" id="exampleRadios1" value="yes" checked>
+  <label class="form-check-label" for="exampleRadios1">
+    YES
+  </label>
+  </div>
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="compulsory" id="exampleRadios2" value="no">
+    <label class="form-check-label" for="exampleRadios2">
+    NO
+    </label>
+  </div>
+  <br />
+  {% if data.data_type in ['Yes or No','Fill in A Blank','Fill in the Blanks']%}
+  <label>Answer</label>
+  <textarea name="answer" id="answer" class="form-control form-control-sm" placeholder = "{{ data.answer }}"></textarea>
+  <br />
+  {% endif %}
+
+  {% if data.data_type in ['Dropdown']%}
+  <label>Option_1</label>
+  <textarea name="option_1" id="option_1" class="form-control form-control-sm" placeholder = "{{ data.option_1 }}"></textarea>
+  <br />
+  <label>Answer</label>
+  <textarea name="answer" id="answer" class="form-control form-control-sm" placeholder = "{{ data.answer }}"></textarea>
+  <br />
+  {% endif %}
+  {% if data.data_type in ['Multiple Choice','Multiple Answers','Picture Multiple Choice','Picture Multiple Answers'] %}
+  <label>Option_1</label>
+  <textarea name="option_1" id="option_1" class="form-control form-control-sm" placeholder = "{{ data.option_1 }}"></textarea>
+  <br />
+  <label>Option_2</label>
+  <textarea name="option_2" id="option_2" class="form-control form-control-sm" placeholder = "{{ data.option_2 }}"></textarea>
+  <br />
+  <label>Option_3</label>
+  <textarea name="option_3" id="option_3" class="form-control form-control-sm" placeholder = "{{ data.option_3 }}"></textarea>
+  <br />
+  <label>Option_4</label>
+  <textarea name="option_4" id="option_4" class="form-control form-control-sm" placeholder = "{{ data.option_4 }}"></textarea>
+  <br />
+  <label>Answer</label>
+  <textarea name="answer" id="answer" class="form-control form-control-sm" placeholder = "{{ data.answer }}"></textarea>
+  <br />
+  {% endif %}
+  {% if data.data_type in ['Picture Multiple Choice','Picture Multiple Answers']%}
+   <div class="row">
+    <h2>Select a file to upload</h2>
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+    <div class="input-group">
+        <input type="file" class="form-control" id="inputGroupFile04" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+</div>
+      </div>
+  {% endif %}
+  
+  <div align="center">
+    <button type="submit" class="btn btn-primary" name = "action" value ="edit" >edit Question</button>
+  <br /> 
+  </div>
+</form>
+{% endblock %}

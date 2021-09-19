@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block title %}Add Form{% endblock %} {% block content
+%}
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+<h1 align="center">Add Question</h1>
+<form method="POST">
+  <ul class="list-group list-group-flush", id="data_stored">
+  {% for form in user.data_stored %}
+  {% if form.name ==  formsname %}
+    {% for dataa in form.data %}
+      <li class="list-group-item">
+      
+      {{ dataa.question }}
+      <div class="text-right">
+      <button type="submit" class="btn btn-primary" value = "{{ dataa.id }}" name = "action">edit</button>
+    <a href = "/delete/{{ dataa.id}}/{{ formsname }} " class = "btn btn-outline-danger btn-sm">Delete</a></div>
+      
+      {% if dataa.data_type in ['Multiple Choice','Multiple Answers','Picture Multiple Choice','Picture Multiple Answers'] %}
+      </br>
+        {{ dataa.option_1 }}
+      </br>
+        {{ dataa.option_2 }}
+      </br>
+        {{ dataa.option_3 }}
+      </br>
+        {{ dataa.option_4 }}
+      </br>
+      {% endif %}
+      <div align="center">
+      {% if dataa.data_type in ['Picture Multiple Choice','Picture Multiple Answers'] %}
+        <img src="{{ url_for('views.display_image', dataaid = dataa.id) }}" alt="ImAGE" width="300" height="300"/>
+      {% endif %}
+      {% if dataa.data_type in ['Likert'] %}
+      <table class="table">
+    <thead>
+      <tr>
+      <th scope='col'> </th>
+      {% if dataa.columns %}
+      {% for col in dataa.columns.split(',') %}
+      <th scope='col'> {{ col }}</th>
+      {% endfor %}
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+      {% if dataa.rows %}
+      {% for row in dataa.rows.split(',') %}
+      <tr> <th scope="row">{{ row }}</th></tr>
+      {% endfor %}
+      {% endif %}
+    </tbody>
+  </table>
+      {% endif %}
+      </div>
+
+      </li>
+    {% endfor %}
+    {% endif %}
+  {% endfor %}
+  
+  </ul>
+  <br />
+  <label>Question Type</label>
+  <select class="form-control form-control-lg" name="question_type" id ="question_type">
+  <option>Multiple Choice</option>
+  <option>Multiple Answers</option>
+  <option>Phone Number</option>
+  <option>Short Text</option>
+  <option>Long Text</option>
+  <option>Picture Multiple Choice</option>
+  <option>Picture Multiple Answers</option>
+  <option>Statement</option>
+  <option>Yes or No</option>
+  <option>Email (with validation)</option>
+  <option>Likert</option>
+  <option>Rating (out of 5)</option>
+  <option>Date (with validation)</option>
+  <option>Number (with validation)</option>
+  <option>Fill in A Blank</option>
+  <option>Fill in the Blanks</option>
+  <option>Dropdown</option>
+  <option>File Upload</option>
+  <option>Website Link (with validation)</option>
+  </select>
+  <div align="center">
+    <button type="submit" class="btn btn-primary" name = "action" value ="add" >Add Question</button>
+  <br /> 
+  </div>
+  <div align="center">
+    <button type="submit" class="btn btn-primary" name = "action" value ="submit">Submit Form</button>
+
+  </div>
+</form>
+{% endblock %}

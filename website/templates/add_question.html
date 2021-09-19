@@ -1,0 +1,108 @@
+{% extends "base.html" %} {% block title %}Add Form{% endblock %} 
+
+
+{% block content %}
+
+<h1 align="center">Add Question</h1>
+<form method="post" enctype="multipart/form-data">
+  <br />
+  <label>Question</label>
+  <textarea name="question" id="question" class="form-control form-control-sm"></textarea>
+  <label>SCORE</label>
+  <input type="number" id="score" name="score"></br>
+  <label>NEGATIVE SCORE</label>
+  <input type="number" id="neg_score" name="neg_score">
+   <br />
+
+  <label>TIMER(in seconds)</label>
+  <input type="number" id="timer" name="timer"></br>
+  <label>QUESTION COMPULSORY</label>
+  <div class="form-check">
+  <input class="form-check-input" type="radio" name="compulsory" id="exampleRadios1" value="yes" checked>
+  <label class="form-check-label" for="exampleRadios1">
+    YES
+  </label>&ensp;&ensp;&ensp;
+  <input class="form-check-input" type="radio" name="compulsory" id="exampleRadios2" value="no">
+  <label class="form-check-label" for="exampleRadios2">
+      NO
+  </label>
+  </div>
+  <br />
+
+<br /><br />
+   {% if data_type in ['Picture Multiple Choice','Picture Multiple Answers']%}
+   <div>
+   <div class="form-group">
+      <label for="inputState">LAYOUT</label>
+      <select id="inputState" class="form-control" name = 'layout'>
+        <option selected>TOP</option>
+        <option>SIDE</option>
+      </select>
+    </div></div>
+   <div class="row">
+    <h2>Select a file to upload</h2>
+    <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+    {% if filename %}
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+    {% endif %}
+    <div class="input-group">
+        <input type="file" class="form-control" id="inputGroupFile04" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+</div>
+      </div>
+   {% endif %}
+  {% if data_type in ['Multiple Choice','Multiple Answers','Picture Multiple Choice','Picture Multiple Answers'] %}
+    <label>Option_1</label>
+    <textarea name="option_1" id="option_1" class="form-control form-control-sm"></textarea>
+    <br />
+    <label>Option_2</label>
+    <textarea name="option_2" id="option_2" class="form-control form-control-sm"></textarea>
+    <br />
+    <label>Option_3</label>
+    <textarea name="option_3" id="option_3" class="form-control form-control-sm"></textarea>
+    <br />
+    <label>Option_4</label>
+    <textarea name="option_4" id="option_4" class="form-control form-control-sm"></textarea>
+    <br />
+    <label>Answer</label>
+    <textarea name="answer" id="answer" class="form-control form-control-sm"></textarea>
+    <br />
+    {% endif %}
+
+    {% if data_type in ['Dropdown'] %}
+    <label>drop_choices</label>
+    <textarea name="option_1" id="option_1" class="form-control form-control-sm" placeholder="option_1,option_2,etc..."></textarea>
+    <br />
+    {% endif %}
+
+
+
+    {% if data_type in ['Fill in A Blank','Fill in the Blanks','Dropdown'] %}
+    <label>Answer</label>
+    <textarea name="answer" id="answer" class="form-control form-control-sm"></textarea>
+    <br />
+    {% endif %}
+  <div align="center">
+    <button type="submit" class="btn btn-primary" name = "action" value ="add" >Add Question</button>
+  <br /> 
+  </div>
+  
+  <div align="center">
+    <button type="submit" class="btn btn-primary" name = "action" value ="submit">Submit</button>
+
+  </div>
+</form>
+
+{% endblock %}
+

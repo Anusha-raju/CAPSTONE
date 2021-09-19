@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="static/setup.css">
+    <link rel="stylesheet" href="static/register.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+
+
+
+    <title>Results</title>
+  </head>
+  {% for message in get_flashed_messages()%}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endfor %}
+  <body>
+    <center>
+    <h1>Results</h1>
+  </center>
+    <form method="POST">
+      <div align = "right"><h1><center>TOTAL SCORE : {{client.total_score}}</center></h1></div>
+
+      <div class="container" id="">
+
+        <table class="table">
+        <thead>
+          <tr>
+            
+            <th scope="col">Question</th>
+            <th scope="col">Answer</th>
+            <th scope="col">Correct Answer</th>
+            <th scope="col">Results</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for answer in client.answers %}
+          <tr>
+            
+            <td>{{ answer.question }}</td>
+            <td>{% if answer.data_type in ['File Upload']%}
+              <a href = "/display_file/{{ answer.id }} " >{{ answer.answer}}</a>
+              {% else %}
+              {{ answer.answer}}
+              {% endif %}
+            </td>
+            <td>{{ answer.correct_answer }}</td>
+            <td>{{ answer.result }}</td>
+          </tr>
+        {% endfor %}</tbody></table>
+    </div>
+    <center>
+    <button type="submit" class="btn btn-primary">HOME</button></center>
+    </form>
+  </body>
+  </html>
