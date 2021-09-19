@@ -1,14 +1,20 @@
-<h1> CAPSTONE PROJECT</h1>
+<h1> CAPSTONE PROJECT</h1>                                            
 
-The app is deployed in [amazingforms](https://amazingforms.herokuapp.com/)
+Author: *ANUSHA*
 
-The guiding video is [YOUTUBE](https://youtu.be/t5i_N2-EMVc)
+
+
+The app is deployed in ***[amazingforms](https://amazingforms.herokuapp.com/)***
+
+The guiding video is   ***[YOUTUBE](https://youtu.be/t5i_N2-EMVc)***
 
 
 
 ***Additional feature added email token validation*** 
 
-An email is sent with timed token when the user is signning in for the first time to validate the email_id.
+An email is sent with timed token when the user is signing in for the first time to validate the email_id.
+
+Edit the existing form to create a new form.
 
 
 
