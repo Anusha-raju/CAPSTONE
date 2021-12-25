@@ -4,7 +4,7 @@ Author: *ANUSHA*
 
 
 
-The app is deployed in ***[amazingforms](https://amazingforms.herokuapp.com/)***
+The app is deployed in Heroku ***[amazingforms](https://amazingforms.herokuapp.com/)***
 
 The guiding video is   ***[YOUTUBE](https://youtu.be/t5i_N2-EMVc)***
 
